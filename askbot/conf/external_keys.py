@@ -116,6 +116,26 @@ settings.register(
 settings.register(
     livesettings.StringValue(
         EXTERNAL_KEYS,
+        'WECHAT_KEY',
+        description=_('Wechat public API key'),
+        help_text=_(
+            'Wechat API key and wechat secret allow to use Wechat '
+            'Connect login method at your site. Please obtain these keys '
+        )
+    )
+)
+
+settings.register(
+    livesettings.StringValue(
+        EXTERNAL_KEYS,
+        'WECHAT_SECRET',
+        description=_('Wechat secret key')
+    )
+)
+
+settings.register(
+    livesettings.StringValue(
+        EXTERNAL_KEYS,
         'TWITTER_KEY',
         description=_('Twitter consumer key'),
         help_text=_(

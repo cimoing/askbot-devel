@@ -58,6 +58,28 @@ def email_is_blacklisted(email):
                 return True
     return False
 
+from sanction.client import Client
+from urllib import quote
+class WechatClient(Client):
+    def auth_uri(self, scope=None, scope_delim=None, state=None, **kwargs):
+        """  Builds the auth URI for the authorization endpoint
+        """
+        scope_delim = scope_delim and scope_delim or ' '
+        kwargs.update({
+            'appid': self.client_id,
+            'response_type': 'code',
+        })
+
+        if scope is not None:
+            kwargs['scope'] = scope_delim.join(scope)
+
+        if state is not None:
+            kwargs['state'] = state
+
+        if self.redirect_uri is not None:
+            kwargs['redirect_uri'] = self.redirect_uri
+
+        return '%s?appid=%s&redirect_uri=%s&response_type=%s&scope=%s&state=%s#wechat_redirect' % (self.auth_endpoint, kwargs['appid'],quote(kwargs['redirect_uri'], safe=''), kwargs['response_type'], kwargs['scope'], kwargs['state'])
 
 class OpenID:
     def __init__(self, openid_, issued, attrs=None, sreg_=None):
@@ -471,6 +493,26 @@ def get_enabled_major_login_providers():
             'scope': ['email',],
         }
 
+    def get_wechat_user_id(client):
+        """returns wechat user openid given the access token"""
+        return client['openid']
+        
+    if askbot_settings.WECHAT_KEY and askbot_settings.WECHAT_SECRET:
+        askbot_settings.SIGNIN_WECHAT_ENABLED = True
+        import json
+        data['wechat'] = {
+            'name': 'wechat',
+            'display_name': u'微信',
+            'type': 'oauth2',
+            'auth_endpoint': 'https://open.weixin.qq.com/connect/oauth2/authorize',
+            'token_endpoint': 'https://api.weixin.qq.com/sns/oauth2/access_token',
+            'resource_endpoint': '',
+            'icon_media_path': 'http://seeklogo.com/images/W/wechat-logo-C88C575BE0-seeklogo.com.png',
+            'get_user_id_function': get_wechat_user_id,
+            'response_parser': lambda data: json.loads(data),
+            'scope': ['snsapi_userinfo',, 'snsapi_base'],
+        }
+
     if askbot_settings.SIGNIN_FEDORA_ENABLED:
         data['fedora'] = {
             'name': 'fedora',
@@ -820,6 +862,9 @@ def get_oauth_parameters(provider_name):
     elif provider_name == 'facebook':
         consumer_key = askbot_settings.FACEBOOK_KEY
         consumer_secret = askbot_settings.FACEBOOK_SECRET
+    elif provider_name == 'wechat':
+        consumer_key = askbot_settings.WECHAT_KEY
+        consumer_secret = askbot_settings.WECHAT_SECRET
     elif provider_name != 'mediawiki':
         raise ValueError('unexpected oauth provider %s' % provider_name)
 
@@ -997,17 +1042,23 @@ class OAuthConnection(object):
 
 def get_oauth2_starter_url(provider_name, csrf_token):
     """returns redirect url for the oauth2 protocol for a given provider"""
-    from sanction.client import Client
 
     providers = get_enabled_login_providers()
     params = providers[provider_name]
     client_id = getattr(askbot_settings, format_setting_name(provider_name) + '_KEY')
     redirect_uri = site_url(reverse('user_complete_oauth2_signin'))
-    client = Client(
-        auth_endpoint=params['auth_endpoint'],
-        client_id=client_id,
-        redirect_uri=redirect_uri
-    )
+    if(params['name'] == 'wechat'):
+        client = WechatClient(
+            auth_endpoint=params['auth_endpoint'],
+            client_id=client_id,
+            redirect_uri=redirect_uri
+        )
+    else:
+        client = Client(
+            auth_endpoint=params['auth_endpoint'],
+            client_id=client_id,
+            redirect_uri=redirect_uri
+        )
     return client.auth_uri(state=csrf_token, **params.get('extra_auth_params', {}))
 
 

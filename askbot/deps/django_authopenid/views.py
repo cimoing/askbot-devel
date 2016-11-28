@@ -278,7 +278,9 @@ def complete_oauth2_signin(request):
 
     client.request_token(
         code=request.GET['code'],
-        parser=params.get('response_parser', None)
+        parser=params.get('response_parser', None),
+        appid=client_id,
+        secret=client_secret
     )
 
     #todo: possibly set additional parameters here
