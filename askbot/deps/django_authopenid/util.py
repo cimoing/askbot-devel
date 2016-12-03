@@ -40,6 +40,7 @@ except:
 
 import time, base64, hmac, hashlib, operator, logging
 from models import Association, Nonce
+import settings
 
 __all__ = ['OpenID', 'DjangoOpenIDStore', 'from_openid_response']
 
@@ -462,6 +463,7 @@ def get_enabled_major_login_providers():
             'password_changeable': True
         }
 
+        """
     if askbot_settings.SIGNIN_CUSTOM_OPENID_ENABLED:
         context_dict = {'login_name': askbot_settings.SIGNIN_CUSTOM_OPENID_NAME}
         data['custom_openid'] = {
@@ -473,13 +475,14 @@ def get_enabled_major_login_providers():
             'openid_endpoint': askbot_settings.SIGNIN_CUSTOM_OPENID_ENDPOINT,
             'extra_token_name': _('%(login_name)s username') % context_dict
         }
+        """
 
     def get_facebook_user_id(client):
         """returns facebook user id given the access token"""
         profile = client.request('me')
         return profile['id']
 
-    if askbot_settings.FACEBOOK_KEY and askbot_settings.FACEBOOK_SECRET:
+    if  askbot_settings.SIGNIN_FACEBOOK_ENABLED and askbot_settings.FACEBOOK_KEY and askbot_settings.FACEBOOK_SECRET:
         data['facebook'] = {
             'name': 'facebook',
             'display_name': 'Facebook',
@@ -497,8 +500,7 @@ def get_enabled_major_login_providers():
         """returns wechat user openid given the access token"""
         return client['openid']
         
-    if askbot_settings.WECHAT_KEY and askbot_settings.WECHAT_SECRET:
-        askbot_settings.SIGNIN_WECHAT_ENABLED = True
+    if askbot_settings.SIGNIN_WECHAT_ENABLED and askbot_settings.WECHAT_KEY and askbot_settings.WECHAT_SECRET:
         import json
         data['wechat'] = {
             'name': 'wechat',
@@ -507,10 +509,10 @@ def get_enabled_major_login_providers():
             'auth_endpoint': 'https://open.weixin.qq.com/connect/oauth2/authorize',
             'token_endpoint': 'https://api.weixin.qq.com/sns/oauth2/access_token',
             'resource_endpoint': '',
-            'icon_media_path': 'http://seeklogo.com/images/W/wechat-logo-C88C575BE0-seeklogo.com.png',
+            'icon_media_path': 'http://img.hb.aicdn.com/5fc987191bf50d659768a8ff02ac8d3a736ac00c1d38-htpJDt_fw580',
             'get_user_id_function': get_wechat_user_id,
             'response_parser': lambda data: json.loads(data),
-            'scope': ['snsapi_userinfo',, 'snsapi_base'],
+            'scope': ['snsapi_userinfo', 'snsapi_base'],
         }
 
     if askbot_settings.SIGNIN_FEDORA_ENABLED:

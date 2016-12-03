@@ -6058,7 +6058,7 @@ msgstr "找不到用户"
 #: templates/authopenid/signin.html:181
 #: templates/authopenid/widget_signin.html:169
 msgid "Enter your email"
-msgstr ""
+msgstr "请输入邮箱"
 
 #: templates/authopenid/account_recovery_form.html:5
 msgid "Send a new recovery key"
@@ -6071,7 +6071,7 @@ msgstr "发送一个恢复建"
 #: templates/authopenid/signin.html:182
 #: templates/authopenid/widget_signin.html:170
 msgid "Recover account"
-msgstr ""
+msgstr "找回密码"
 
 #: templates/authopenid/authopenid_macros.html:60
 msgid "Please enter your <span>user name</span>, then sign in"
@@ -6233,7 +6233,7 @@ msgstr ""
 #: templates/authopenid/signin.html:84
 #: templates/authopenid/widget_signin.html:79
 msgid "Username or email"
-msgstr ""
+msgstr "用户名或邮箱"
 
 #: templates/authopenid/signin.html:94
 #: templates/authopenid/signup_with_password.html:50
@@ -6293,7 +6293,7 @@ msgstr "无法删除"
 #: templates/authopenid/signin.html:177
 #: templates/authopenid/widget_signin.html:165
 msgid "Having trouble signing in?"
-msgstr ""
+msgstr "忘记密码？"
 
 #: templates/authopenid/signup_with_password.html:10
 msgid ""
@@ -7748,9 +7748,14 @@ msgstr "登录/发表答案"
 msgid "Contributors"
 msgstr "贡献者"
 
+#: templates/widgets/footer.html:20
+#, python-format
+msgid "Content on this site is licensed under a <a href=\"%(license_url)s\">%(license_title)s</a> license"
+msgstr "本站内容依 <a href=\"%(license_url)s\">%(license_title)s</a> 授权"
+
 #: templates/widgets/footer.html:33
 #, python-format
-msgid "Content on this site is licensed under a %(license)s"
+msgid "Content on this site is licensed under a %(license)s license"
 msgstr "本站内容依 %(license)s 授权"
 
 #: templates/widgets/footer.html:38

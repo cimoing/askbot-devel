@@ -17,7 +17,7 @@
                 {{settings.APP_COPYRIGHT}} {% trans 
                     license_title=settings.LICENSE_TITLE,
                     license_url=settings.LICENSE_URL
-                %}Content on this site is licensed under a <a href="{{license_url}}">{{license_title}}</a> license.{% endtrans %}
+                %}Content on this site is licensed under a <a href="{{license_url}}">{{license_title}}</a> license{% endtrans %}
 
             </div>
             {% else %}
@@ -30,7 +30,7 @@
                     alt="{{settings.LICENSE_ACRONYM}}"
                 />
                 {% endif %}
-                {{settings.APP_COPYRIGHT}} {% trans license=settings.LICENSE_TITLE %}Content on this site is licensed under a {{license}}{% endtrans %}
+                {{settings.APP_COPYRIGHT}} {% trans license=settings.LICENSE_TITLE %}Content on this site is licensed under a {{license}} license{% endtrans %}
             </div>
             {% endif %}
         {% endif %}
@@ -56,11 +56,13 @@
             </a>
             {% endif %}
         </div>
+	<!--
         <div class="powered-link">
             <a href="http://askbot.com" target="_blank">
                 Powered by Askbot version {{settings.ASKBOT_VERSION}}
             </a>
         </div>
+	-->
         <div class="clean"></div>
     </div>
 </div>

@@ -353,7 +353,7 @@ body.user-messages {
 /* ----- Header, check blocks/header.html ----- */
 #header {
   margin-top: 0px;
-  background: #16160f;
+  background: #3571b7;
   font-family: 'Open Sans Condensed', Arial, sans-serif;
 }
 .content-wrapper {
@@ -525,13 +525,10 @@ body.user-messages {
   text-decoration: underline;
 }
 #metaNav #navTags {
-  background: 0px -95px url(../images/sprites.png) no-repeat;
 }
 #metaNav #navUsers, #metaNav #navGroups {
-  background: 3px -133px url(../images/sprites.png) no-repeat;
 }
 #metaNav #navBadges {
-  background: 3px -170px url(../images/sprites.png) no-repeat;
 }
 #metaNav a.group-name {
   margin: 0px;
@@ -3667,7 +3664,7 @@ body.question-page ins, body.main-page ins {
   clear: both;
   border-top: 1px solid #000;
   padding: 16px 0 0 0;
-  background: #16160f;
+  background: #3571b7;
   font-size: 16px;
   font-family: 'Open Sans Condensed', Arial, sans-serif;
 }
@@ -3695,7 +3692,7 @@ body.question-page ins, body.main-page ins {
   color: #8ebcc7;
 }
 .copyright {
-  color: #616161;
+  color: #e7e8a8;
   width: 500px;
   float: right;
   text-align: right;

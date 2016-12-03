@@ -1,3 +1,4 @@
+#coding=utf-8
 """
 Q&A website settings - title, desctiption, basic urls
 keywords
@@ -40,7 +41,7 @@ settings.register(
     livesettings.StringValue(
         QA_SITE_SETTINGS,
         'APP_COPYRIGHT',
-        default='Copyright Askbot, 2010-2011.',
+        default=u'Copyright @匠心共进社, 2016.',
         description=_('Copyright message to show in the footer')
     )
 )
