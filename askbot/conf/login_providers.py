@@ -198,6 +198,7 @@ settings.register(
 
 providers = (
     'local',
+    'Wechat',
     'AOL',
     'Blogger',
     'ClaimID',
@@ -225,7 +226,7 @@ providers = (
 DISABLED_BY_DEFAULT = ('LaunchPad', 'Mozilla Persona', 'OpenStackID')
 
 NEED_EXTRA_SETUP = ('Google Plus', 'Twitter', 'MediaWiki', 'Facebook',
-                    'LinkedIn', 'identi.ca')
+                    'LinkedIn', 'identi.ca', 'Wechat')
 
 for provider in providers:
     if provider == 'local':
