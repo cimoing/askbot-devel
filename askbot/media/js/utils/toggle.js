@@ -98,6 +98,9 @@ Toggle.prototype.createDom = function () {
 
 Toggle.prototype.decorate = function (element) {
     this._element = element;
+    if(element.data('is-on') == true) {
+	this._state = 'on-state';
+    }
     //read messages for all states
     var messages = {};
     messages['on-state'] = element.data('onStateText') || gettext('enabled');
